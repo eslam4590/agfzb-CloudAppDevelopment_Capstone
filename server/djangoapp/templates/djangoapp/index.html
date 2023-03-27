@@ -12,13 +12,47 @@
     <script src="https://unpkg.com/bootstrap-table@1.18.2/dist/extensions/filter-control/bootstrap-table-filter-control.min.js"></script>
 
 </head>
-
+    <div class="header">
+        <div class="title">
+           <h1>Dealership Review</h1>
     <body>
-    <!-- Remove this line the first time you edit this file -->
-     This is the index page of your Django app!
-    <!--Add a nav bar here -->
 
-    <!--Add a dealer table here -->
+        <nav>
+            <ul>
+              <li><a href="#home">Home</a></li>
+              <li><a href="#about">About</a></li>
+              <li><a href="#services">Services</a></li>
+              <li><a href="#contact">Contact</a></li>
+              <li><a href="#Login">Login</a></li>
+              <li><a href="#Logout">Logout</a></li>
+              <li><a href="#SignUp">Sign Up</a></li>
+            </ul>
+          </nav>
+
+          <table class="table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Dealer Name</th>
+                    <th>City</th>
+                    <th>Address</th>
+                    <th>Zip</th>
+                    <th>State</th>
+                </tr>
+            </thead>
+    
+            <tbody>
+                {% for dealer in dealerships %}
+                    <tr>
+                        <td>{{ dealer.id }}</td>
+                        <td>{{ dealer.name }}</td>
+                        <td>{{ dealer.city }}</td>
+                        <td>{{ dealer.address }}</td>
+                        <td>{{ dealer.zip }}</td>
+                        <td>{{ dealer.state }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
 
     </body>
 
