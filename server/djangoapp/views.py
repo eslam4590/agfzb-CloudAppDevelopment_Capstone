@@ -1,19 +1,19 @@
-from django.shortcuts import render
 from django.http import HttpResponseRedirect, HttpResponse
-from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404, render, redirect
 # from .models import related models
-# from .restapis import related methods
 from django.contrib.auth import login, logout, authenticate
 from django.contrib import messages
 from datetime import datetime
 import logging
 import json
+from django.contrib.auth.forms import UserCreationForm,login_required, User
+from django.template import loader
+from .restapis import get_dealer_reviews_from_cf, post_request
+
 
 # Get an instance of a logger
 logger = logging.getLogger(__name__)
 
-from django.shortcuts import render
 
 def my_view(request):
     context = {
@@ -22,24 +22,19 @@ def my_view(request):
     }
     return render(request, 'myapp/mytemplate.html', context)
 
-from django.shortcuts import render
 
 def my_view(request):
     return render(request, 'myapp/mytemplate.html')
 
-from django.shortcuts import render
 
 def about(request):
     return render(request, 'about.html')
 
 
-from django.shortcuts import render
 
 def contact(request):
     return render(request, 'contact.html')
 
-from django.contrib.auth import authenticate, login
-from django.shortcuts import render, redirect
 
 def login_view(request):
     if request.method == 'POST':
@@ -53,9 +48,6 @@ def login_view(request):
             return render(request, 'login.html', {'error_message': 'Invalid login credentials'})
     else:
         return render(request, 'login.html')
-
-from django.contrib.auth import logout
-from django.shortcuts import redirect
 
 
 # Create your views here.
@@ -85,9 +77,6 @@ def logout_view(request):
 # ...
 
 
-from django.contrib.auth.models import User
-from django.shortcuts import render, redirect
-
 def signup_view(request):
     if request.method == 'POST':
         first_name = request.POST['first_name']
@@ -101,8 +90,6 @@ def signup_view(request):
     else:
         return render(request, 'signup.html')
 
-from django.shortcuts import render, redirect
-from django.contrib.auth.forms import UserCreationForm
 
 def signup(request):
     form = UserCreationForm()
@@ -137,22 +124,19 @@ def get_dealerships(request):
 # Create a `add_review` view to submit a review
 # def add_review(request, dealer_id):
 # ...
-from django.http import HttpResponse
-from django.template import loader
-from .restapis import get_dealer_reviews_from_cf
+
 
 def get_dealer_details(request, dealer_id):
-        context = {}
+    context = {}
     context['reviews'] = get_dealer_reviews_from_cf(dealer_id)
     reviews = get_dealer_reviews_from_cf(dealer_id)
     context = {'reviews': reviews}
     template = loader.get_template('dealer_reviews.html')
     return HttpResponse(template.render(context, request))
 
-from django.http import HttpResponse
-from django.contrib.auth.decorators import login_required
-from datetime import datetime
-from .restapis import post_request
+
+
+
 
 @login_required
 def add_review(request, dealer_id):
